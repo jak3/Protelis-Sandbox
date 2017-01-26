@@ -1,0 +1,26 @@
+module distanceToP
+
+def myPosition() {
+  self.getDevicePosition()
+}
+
+def nbrRange() {
+  nbr(myPosition()).getDistanceTo(myPosition())
+}
+
+let res = rep (d <- 100) {
+
+mux(env.has("viri")){
+  1
+}
+else{
+    mux (env.has("source")) {
+      0
+    } else {
+      minHood(nbr(d) + nbrRange())
+    }
+  }
+};
+
+env.put("distance", res);
+res

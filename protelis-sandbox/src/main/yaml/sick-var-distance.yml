@@ -1,0 +1,60 @@
+incarnation: protelis
+
+variables:
+  n: &n
+    formula: 500
+  offset: &offset
+    min: 0
+    max: 1
+    step: 1
+    default: 1
+  virihall: &virihall
+    # variabile, 2.5 risulta la source init
+    formula: 2.5 + $offset
+  seed: &seed
+    min: 0
+    max: 1
+    step: 1
+    default: 0
+  gridWidthInM: &gridWidthInM
+    formula: 10
+  gridHeightInM: &gridHeightInM
+    formula: 5
+  neighborgInRange: &neighborgInRange
+    formula: 10
+  commRange: &commRange
+    formula: Math.sqrt($gridHeightInM * $gridWidthInM * $neighborgInRange / ($n * Math.PI))
+
+network-model:
+  type: EuclideanDistance
+  parameters: [*commRange]
+
+pools:
+  - pool: &distanceTo
+    - time-distribution: 1
+      program: distanceToPWithViri
+    - time-distribution: null
+      program: send
+
+displacements:
+  - in:
+      type: Rectangle
+      parameters: [*n, 0, 0, *gridWidthInM, *gridHeightInM]
+    contents:
+      - in:
+          type: Circle
+          parameters: [2.5, 2.5, 1]
+        molecule: source
+        concentration: true
+      - in:
+          type: Circle
+          parameters: [*virihall, 2.5, 1]
+        molecule: viri
+        concentration: true
+    programs:
+      - *distanceTo
+
+export:
+  - time
+  - number-of-nodes
+  - molecule: distance

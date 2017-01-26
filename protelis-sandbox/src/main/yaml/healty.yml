@@ -2,17 +2,18 @@ incarnation: protelis
 
 variables:
   n: &n
-    type: GeometricVariable
-    parameters: [400, 100, 1000, 5]
+    formula: 500
+    #type: GeometricVariable
+    #parameters: [400, 100, 1000, 5]
   seed: &seed
     min: 0
     max: 1
     step: 1
     default: 0
   gridWidthInM: &gridWidthInM
-    formula: 2200 # estimated with GMAPS
+    formula: 10
   gridHeightInM: &gridHeightInM
-    formula: 1000 # estimated with GMAPS
+    formula: 5
   neighborgInRange: &neighborgInRange
     formula: 10
   commRange: &commRange
@@ -23,12 +24,12 @@ network-model:
   type: EuclideanDistance
   parameters: [*commRange]
 
-environment: 
-  type: OSMEnvironment
-  parameters: [src/main/resources/cesena.pbf]
+#environment:
+#  type: OSMEnvironment
+#  parameters: [src/main/resources/cesena.pbf]
 
-positions:
-  type: LatLongPosition
+#positions:
+#  type: LatLongPosition
 
 pools:
   - pool: &distanceTo
@@ -40,8 +41,14 @@ pools:
 displacements:
   - in:
       type: Rectangle
-      parameters: [*n, 44.1323, 12.233, 0.007959, 0.024449]
-    programs: 
+      parameters: [*n, 0, 0, *gridWidthInM, *gridHeightInM]
+    contents:
+      - in:
+          type: Circle
+          parameters: [2.5, 2.5, 1]
+        molecule: source
+        concentration: true
+    programs:
       - *distanceTo
 
 export:
