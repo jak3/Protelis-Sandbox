@@ -48,6 +48,22 @@ task runBatch(type: JavaExec) {
     dependsOn(compileJava)
 }
 
+task runHealthy(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    classpath "src/main/protelis"
+    classpath "src/main/java"
+    maxHeapSize = "8g"
+    main = "it.unibo.alchemist.Alchemist"
+    args(
+        "-y", "src/main/yaml/healthy.yml",
+        "-g", "src/main/effects/healthy.aes",
+        "-t", "200",
+        "-b", "-var", "seed",
+        "-e", "data/healthy-batch"
+    )
+    dependsOn(compileJava)
+}
+
 task runVdistance(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     classpath "src/main/protelis"
@@ -58,7 +74,7 @@ task runVdistance(type: JavaExec) {
         "-y", "src/main/yaml/sick-var-distance.yml",
         // devi essere sicuro che questo valore sia corretto
         "-t", "200",
-        "-b", "-var", "seed", "offset",
+        "-b", "-var", "offset",
         "-e", "data/sick-distance-batch"
     )
     dependsOn(compileJava)
@@ -89,7 +105,7 @@ task runVbadness(type: JavaExec) {
     args(
         "-y", "src/main/yaml/sick-var-badness.yml",
         // devi essere sicuro che questo valore sia corretto
-        "-t", "200",
+        //"-t", "200",
         "-b", "-var", "seed", "offset",
         "-e", "data/sick-badness-batch"
     )

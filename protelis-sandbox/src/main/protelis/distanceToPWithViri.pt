@@ -9,10 +9,9 @@ def nbrRange() {
 }
 
 let res = rep (d <- 100) {
-
-mux(env.has("viri")){
-  1
-}
+  mux(env.has("viri")){
+    0
+  }
 else{
     mux (env.has("source")) {
       0

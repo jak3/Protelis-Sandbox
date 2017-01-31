@@ -3,38 +3,35 @@ incarnation: protelis
 variables:
   n: &n
     formula: 500
-    #type: GeometricVariable
-    #parameters: [400, 100, 1000, 5]
+  sourcepos: &sourcepos
+    formula: 2.5
+  offset: &offset
+    min: 0
+    max: 10
+    step: 1
+    default: 1
   seed: &seed
     min: 0
     max: 1
     step: 1
     default: 0
   gridWidthInM: &gridWidthInM
-    formula: 10
+    formula: 20
   gridHeightInM: &gridHeightInM
-    formula: 5
+    formula: 10
   neighborgInRange: &neighborgInRange
     formula: 10
   commRange: &commRange
-    # with homogenous density: deviceNumber / mapArea = neighboringDevices / circleArea
     formula: Math.sqrt($gridHeightInM * $gridWidthInM * $neighborgInRange / ($n * Math.PI))
 
 network-model:
   type: EuclideanDistance
   parameters: [*commRange]
 
-#environment:
-#  type: OSMEnvironment
-#  parameters: [src/main/resources/cesena.pbf]
-
-#positions:
-#  type: LatLongPosition
-
 pools:
   - pool: &distanceTo
     - time-distribution: 1
-      program: distanceTo
+      program: distanceToPWithViri
     - time-distribution: null
       program: send
 
@@ -45,14 +42,11 @@ displacements:
     contents:
       - in:
           type: Circle
-          parameters: [2.5, 2.5, 1]
+          parameters: [*sourcepos, *sourcepos, 1]
         molecule: source
         concentration: true
     programs:
       - *distanceTo
 
 export:
-  - time
-  - number-of-nodes
   - molecule: distance
-#    aggregators: [mean]
