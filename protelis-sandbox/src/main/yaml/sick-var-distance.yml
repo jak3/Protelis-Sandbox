@@ -6,10 +6,11 @@ variables:
   sourcepos: &sourcepos
     formula: 2.5
   offset: &offset
-    min: 0
-    max: 2
-    step: 1
-    default: 0
+    formula: 0
+#    min: 0
+#    max: 2
+#    step: 1
+#    default: 0
   virihall: &virihall
     formula: $sourcepos + $offset
   seed: &seed
