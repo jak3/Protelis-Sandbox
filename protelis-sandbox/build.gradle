@@ -35,34 +35,34 @@ task runAlchemist(type: JavaExec) {
     dependsOn(compileJava)
 }
 
-task runBatch(type: JavaExec) {
+task runVdistance0(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     classpath "src/main/protelis"
     classpath "src/main/java"
     maxHeapSize = "8g"
     main = "it.unibo.alchemist.Alchemist"
     args(
-        "-y", "src/main/yaml/${simulation}.yml",
-        "-g", "src/main/effects/${simulation}.aes",
-        "-t", "200",
-        "-b", "-var", "seed",
-        "-e", "data/${simulation}-batch"
+        "-y", "src/main/yaml/sick-var-distance0.yml",
+        "-t", "100",
+        "-hl",
+        "-i", "1",
+        "-e", "data/sick-distance-0"
     )
     dependsOn(compileJava)
 }
 
-task runHealthy(type: JavaExec) {
+task runVdistance2(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     classpath "src/main/protelis"
     classpath "src/main/java"
     maxHeapSize = "8g"
     main = "it.unibo.alchemist.Alchemist"
     args(
-        "-y", "src/main/yaml/healthy.yml",
-        "-g", "src/main/effects/healthy.aes",
-        "-t", "200",
-        "-b", "-var", "seed",
-        "-e", "data/healthy-batch"
+        "-y", "src/main/yaml/sick-var-distance2.yml",
+        "-t", "100",
+        "-hl",
+        "-i", "1",
+        "-e", "data/sick-distance-2"
     )
     dependsOn(compileJava)
 }
@@ -75,7 +75,7 @@ task runVdistance(type: JavaExec) {
     main = "it.unibo.alchemist.Alchemist"
     args(
         "-y", "src/main/yaml/sick-var-distance.yml",
-        "-t", "300",
+        "-t", "100",
         "-b", "-var", "seed", "offset",
         "-i", "1",
         "-e", "data/sick-distance-batch"
@@ -83,36 +83,5 @@ task runVdistance(type: JavaExec) {
     dependsOn(compileJava)
 }
 
-task runVmagnitude(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    classpath "src/main/protelis"
-    classpath "src/main/java"
-    maxHeapSize = "8g"
-    main = "it.unibo.alchemist.Alchemist"
-    args(
-        "-y", "src/main/yaml/sick-var-magnitude.yml",
-        // devi essere sicuro che questo valore sia corretto
-        "-t", "200",
-        "-b", "-var", "seed", "offset",
-        "-e", "data/sick-magnitude-batch"
-    )
-    dependsOn(compileJava)
-}
-
-task runVbadness(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    classpath "src/main/protelis"
-    classpath "src/main/java"
-    maxHeapSize = "8g"
-    main = "it.unibo.alchemist.Alchemist"
-    args(
-        "-y", "src/main/yaml/sick-var-badness.yml",
-        // devi essere sicuro che questo valore sia corretto
-        //"-t", "200",
-        "-b", "-var", "seed", "offset",
-        "-e", "data/sick-badness-batch"
-    )
-    dependsOn(compileJava)
-}
 
 defaultTasks("runAlchemist")

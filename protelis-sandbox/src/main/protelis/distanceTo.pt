@@ -1,8 +1,0 @@
-module distanceTo
-import protelis:coord:spreading
-
-let source = env.has("source");
-//env.put("source", source);
-let res = distanceTo(source);
-env.put("distance", res);
-res
