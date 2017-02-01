@@ -1,9 +1,5 @@
 incarnation: protelis
 
-seeds:
-  scenario: 0
-  simulation: 0
-
 variables:
   n: &n
     formula: 500
@@ -16,11 +12,6 @@ variables:
     default: 0
   virihall: &virihall
     formula: $sourcepos + $offset
-  seed: &seed
-    min: 0
-    max: 1
-    step: 1
-    default: 0
   gridWidthInM: &gridWidthInM
     formula: 20
   gridHeightInM: &gridHeightInM
@@ -48,8 +39,6 @@ displacements:
     contents:
       - molecule: offset
         concentration: *offset
-      - molecule: virihall
-        concentration: *virihall
       - in:
           type: Circle
           parameters: [*sourcepos, *sourcepos, 1]
@@ -57,7 +46,7 @@ displacements:
         concentration: true
       - in:
           type: Circle
-          parameters: [*virihall, *sourcepos, 1]
+          parameters: [*offset, *sourcepos, 1]
         molecule: viri
         concentration: true
     programs:
