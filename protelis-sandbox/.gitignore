@@ -1,10 +1,9 @@
-/.gradle/
-/build/
-/bin/
+.gradle/
+build/
+bin/
 **.swp
 data
-!data/numpy-test.py
-
+!./data/numpy-test.py
 # Useless keep track of it
 gradle.properties
 

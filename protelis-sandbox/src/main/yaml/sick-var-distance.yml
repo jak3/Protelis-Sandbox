@@ -1,5 +1,9 @@
 incarnation: protelis
 
+seeds:
+  scenario: 0
+  simulation: 0
+
 variables:
   n: &n
     formula: 500
@@ -7,9 +11,9 @@ variables:
     formula: 2.5
   offset: &offset
     min: 0
-    max: 10
+    max: 2
     step: 1
-    default: 10
+    default: 0
   virihall: &virihall
     formula: $sourcepos + $offset
   seed: &seed
@@ -42,6 +46,10 @@ displacements:
       type: Rectangle
       parameters: [*n, 0, 0, *gridWidthInM, *gridHeightInM]
     contents:
+      - molecule: offset
+        concentration: *offset
+      - molecule: virihall
+        concentration: *virihall
       - in:
           type: Circle
           parameters: [*sourcepos, *sourcepos, 1]
@@ -56,6 +64,4 @@ displacements:
       - *distanceTo
 
 export:
-  #  - time
-  #  - number-of-nodes
   - molecule: distance

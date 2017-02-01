@@ -7,20 +7,20 @@ variables:
     formula: 2.5
   offset: &offset
     min: 0
-    max: 1
+    max: 5
     step: 1
-    default: 1
+    default: 5
   virihall: &virihall
-    formula: $sourcepos + $offset
+    formula: $gridWidthInM / 2
   seed: &seed
     min: 0
     max: 1
     step: 1
     default: 0
   gridWidthInM: &gridWidthInM
-    formula: 10
+    formula: 20
   gridHeightInM: &gridHeightInM
-    formula: 5
+    formula: 15
   neighborgInRange: &neighborgInRange
     formula: 10
   commRange: &commRange
@@ -49,13 +49,11 @@ displacements:
         concentration: true
       - in:
           type: Circle
-          parameters: [*virihall, 2.5, 1]
+          parameters: [*virihall, *virihall, 1]
         molecule: viri
         concentration: true
     programs:
       - *distanceTo
 
 export:
-  - time
-  - number-of-nodes
   - molecule: distance
