@@ -12,6 +12,11 @@ variables:
     default: 0
   virihall: &virihall
     formula: $sourcepos + $offset
+  seed: &seed
+    min: 0
+    max: 1
+    step: 1
+    default: 0
   gridWidthInM: &gridWidthInM
     formula: 20
   gridHeightInM: &gridHeightInM
@@ -20,6 +25,10 @@ variables:
     formula: 10
   commRange: &commRange
     formula: Math.sqrt($gridHeightInM * $gridWidthInM * $neighborgInRange / ($n * Math.PI))
+
+seeds:
+  scenario: *seed
+  simulation: *seed
 
 network-model:
   type: EuclideanDistance
@@ -37,8 +46,6 @@ displacements:
       type: Rectangle
       parameters: [*n, 0, 0, *gridWidthInM, *gridHeightInM]
     contents:
-      - molecule: offset
-        concentration: *offset
       - in:
           type: Circle
           parameters: [*sourcepos, *sourcepos, 1]
@@ -46,11 +53,12 @@ displacements:
         concentration: true
       - in:
           type: Circle
-          parameters: [*offset, *sourcepos, 1]
+          parameters: [*virihall, *sourcepos, 1]
         molecule: viri
         concentration: true
     programs:
       - *distanceTo
 
 export:
+  - time
   - molecule: distance

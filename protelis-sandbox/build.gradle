@@ -27,7 +27,9 @@ task runAlchemist(type: JavaExec) {
     args(
         "-y", "src/main/yaml/${simulation}.yml",
         "-g", "src/main/effects/${simulation}.aes",
+        "-hl",
         "-t", "300",
+        "-i", "1",
         "-e", "data/${simulation}-0"
     )
     dependsOn(compileJava)
@@ -74,7 +76,8 @@ task runVdistance(type: JavaExec) {
     args(
         "-y", "src/main/yaml/sick-var-distance.yml",
         "-t", "300",
-        "-b", "-var", "offset",
+        "-b", "-var", "seed", "offset",
+        "-i", "1",
         "-e", "data/sick-distance-batch"
     )
     dependsOn(compileJava)
