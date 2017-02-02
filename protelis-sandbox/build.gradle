@@ -76,7 +76,7 @@ task runVdistance(type: JavaExec) {
     args(
         "-y", "src/main/yaml/sick-var-distance.yml",
         "-t", "100",
-        "-b", "-var", "seed", //"offset",
+        "-b", "-var", "seed", "offset",
         "-i", "1",
         "-e", "data/sick-distance-batch"
     )

@@ -6,11 +6,10 @@ variables:
   sourcepos: &sourcepos
     formula: 2.5
   offset: &offset
-    formula: 0
-#    min: 0
-#    max: 2
-#    step: 1
-#    default: 0
+    min: 0
+    max: 2
+    step: 1
+    default: 0
   virihall: &virihall
     formula: $sourcepos + $offset
   seed: &seed
@@ -52,14 +51,17 @@ displacements:
           parameters: [*sourcepos, *sourcepos, 1]
         molecule: source
         concentration: true
-      - in:
-          type: Circle
-          parameters: [*virihall, *sourcepos, 1]
-        molecule: viri
+    programs:
+      - *distanceTo
+  - in:
+      type: Circle
+      parameters: [10, *virihall, *sourcepos, 1]
+    contents:
+      - molecule: viri
         concentration: true
     programs:
       - *distanceTo
 
 export:
-  - time
   - molecule: distance
+    aggregators: [mean]
